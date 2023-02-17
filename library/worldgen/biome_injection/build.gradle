@@ -1,0 +1,18 @@
+plugins {
+	id("qsl.module")
+}
+
+qslModule {
+	name = "Quilt Biome Injection API"
+	moduleName = "biome_injection"
+	id = "quilt_biome_injection"
+	library = "worldgen"
+	description = "An API for managing and injecting biomes into the default dimensions."
+	moduleDependencies {
+		core {
+			api("qsl_base")
+			api("resource_loader")
+		}
+	}
+	accessWidener()
+}
