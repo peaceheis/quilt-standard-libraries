@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 QuiltMC
+ * Copyright 2022-2023 QuiltMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public abstract class ShapelessRecipeSerializerMixin implements QuiltRecipeSeria
 	public JsonObject toJson(ShapelessRecipe recipe) {
 		return new ShapelessRecipeJsonFactory.ShapelessRecipeJsonProvider(recipe.getId(),
 				recipe.getOutput().getItem(), recipe.getOutput().getCount(),
-				recipe.getGroup(), recipe.getIngredients(), null, null)
+				recipe.getGroup(), recipe.getCategory(), recipe.getIngredients(), null, null)
 				.toJson();
 	}
 }

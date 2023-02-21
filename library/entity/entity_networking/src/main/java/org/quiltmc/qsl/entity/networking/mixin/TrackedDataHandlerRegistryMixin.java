@@ -28,8 +28,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.util.TriState;
@@ -77,6 +77,8 @@ public class TrackedDataHandlerRegistryMixin {
 			id = "byte";
 		} else if (handler == TrackedDataHandlerRegistry.INTEGER) {
 			id = "integer";
+		} else if (handler == TrackedDataHandlerRegistry.LONG) {
+			id = "long";
 		} else if (handler == TrackedDataHandlerRegistry.FLOAT) {
 			id = "float";
 		} else if (handler == TrackedDataHandlerRegistry.STRING) {

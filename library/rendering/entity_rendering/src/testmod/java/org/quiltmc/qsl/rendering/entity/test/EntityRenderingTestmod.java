@@ -19,9 +19,9 @@ package org.quiltmc.qsl.rendering.entity.test;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
@@ -33,14 +33,14 @@ public final class EntityRenderingTestmod implements ModInitializer {
 		return new Identifier(NAMESPACE, path);
 	}
 
-	public static final ArmorItem QUILT_HELMET = Registry.register(Registry.ITEM, id("quilt_helmet"),
-			new ArmorItem(QuiltArmorMaterial.INSTANCE, EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.COMBAT)));
-	public static final ArmorItem QUILT_CHESTPLATE = Registry.register(Registry.ITEM, id("quilt_chestplate"),
-			new ArmorItem(QuiltArmorMaterial.INSTANCE, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT)));
-	public static final ArmorItem QUILT_LEGGINGS = Registry.register(Registry.ITEM, id("quilt_leggings"),
-			new ArmorItem(QuiltArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings().group(ItemGroup.COMBAT)));
-	public static final ArmorItem QUILT_BOOTS = Registry.register(Registry.ITEM, id("quilt_boots"),
-			new ArmorItem(QuiltArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.COMBAT)));
+	public static final ArmorItem QUILT_HELMET = Registry.register(Registries.ITEM, id("quilt_helmet"),
+			new ArmorItem(QuiltArmorMaterial.INSTANCE, EquipmentSlot.HEAD, new Item.Settings()));
+	public static final ArmorItem QUILT_CHESTPLATE = Registry.register(Registries.ITEM, id("quilt_chestplate"),
+			new ArmorItem(QuiltArmorMaterial.INSTANCE, EquipmentSlot.CHEST, new Item.Settings()));
+	public static final ArmorItem QUILT_LEGGINGS = Registry.register(Registries.ITEM, id("quilt_leggings"),
+			new ArmorItem(QuiltArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings()));
+	public static final ArmorItem QUILT_BOOTS = Registry.register(Registries.ITEM, id("quilt_boots"),
+			new ArmorItem(QuiltArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings()));
 
 	@Override
 	public void onInitialize(ModContainer mod) {}

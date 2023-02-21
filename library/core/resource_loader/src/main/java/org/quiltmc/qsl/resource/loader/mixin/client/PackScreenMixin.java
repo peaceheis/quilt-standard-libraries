@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 QuiltMC
+ * Copyright 2022-2023 QuiltMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,10 @@ import net.minecraft.client.gui.screen.pack.PackScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
+import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.resource.loader.impl.QuiltBuiltinResourcePackProfile.BuiltinResourcePackSource;
 
+@ClientOnly
 @Mixin(PackScreen.class)
 public abstract class PackScreenMixin extends Screen {
 	@Shadow

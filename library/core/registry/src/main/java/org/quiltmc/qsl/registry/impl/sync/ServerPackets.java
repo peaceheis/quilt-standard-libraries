@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 QuiltMC
+ * Copyright 2022-2023 QuiltMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import net.minecraft.util.Identifier;
  */
 @ApiStatus.Internal
 public final class ServerPackets {
-	public static final IntSet SUPPORTED_VERSIONS = IntSet.of(1, 2);
+	public static final IntSet SUPPORTED_VERSIONS = IntSet.of(2);
 
 	/**
 	 * Starts registry sync.

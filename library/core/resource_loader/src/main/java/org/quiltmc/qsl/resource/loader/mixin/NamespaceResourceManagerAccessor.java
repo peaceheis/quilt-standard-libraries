@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 QuiltMC
+ * Copyright 2021-2023 QuiltMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import net.minecraft.resource.NamespaceResourceManager;
-import net.minecraft.resource.Resource;
+import net.minecraft.resource.ResourceIoSupplier;
+import net.minecraft.resource.ResourceMetadata;
 import net.minecraft.resource.ResourceType;
-import net.minecraft.resource.pack.ResourcePack;
 import net.minecraft.util.Identifier;
 
 @Mixin(NamespaceResourceManager.class)
@@ -34,8 +34,10 @@ public interface NamespaceResourceManagerAccessor {
 	@Accessor
 	ResourceType getType();
 
-	@Invoker("getResourceInputStreamSupplier")
-	Resource.InputSupplier<InputStream> invokeOpen(Identifier id, ResourcePack pack) throws IOException;
+	@Invoker
+	static ResourceMetadata invokeGetResourceMetadataFromInputStream(ResourceIoSupplier<InputStream> readSupplier) throws IOException {
+		throw new IllegalStateException("Invoker injection failed.");
+	}
 
 	@Invoker
 	static Identifier invokeGetMetadataPath(Identifier id) {

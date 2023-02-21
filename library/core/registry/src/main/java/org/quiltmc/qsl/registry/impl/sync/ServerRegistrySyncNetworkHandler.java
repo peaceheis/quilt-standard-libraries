@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 QuiltMC
+ * Copyright 2022-2023 QuiltMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,14 @@ import net.minecraft.network.ClientConnection;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.listener.ServerPlayPacketListener;
+import net.minecraft.network.packet.c2s.MessageAcknowledgmentC2SPacket;
 import net.minecraft.network.packet.c2s.play.AdvancementTabC2SPacket;
 import net.minecraft.network.packet.c2s.play.BoatPaddleStateC2SPacket;
 import net.minecraft.network.packet.c2s.play.BookUpdateC2SPacket;
 import net.minecraft.network.packet.c2s.play.ButtonClickC2SPacket;
 import net.minecraft.network.packet.c2s.play.ChatCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
+import net.minecraft.network.packet.c2s.play.ChatSessionUpdateC2SPacket;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
@@ -57,7 +59,6 @@ import net.minecraft.network.packet.c2s.play.QueryEntityNbtC2SPacket;
 import net.minecraft.network.packet.c2s.play.RecipeBookDataC2SPacket;
 import net.minecraft.network.packet.c2s.play.RecipeCategoryOptionsC2SPacket;
 import net.minecraft.network.packet.c2s.play.RenameItemC2SPacket;
-import net.minecraft.network.packet.c2s.play.RequestChatPreviewC2SPacket;
 import net.minecraft.network.packet.c2s.play.RequestCommandCompletionsC2SPacket;
 import net.minecraft.network.packet.c2s.play.ResourcePackStatusC2SPacket;
 import net.minecraft.network.packet.c2s.play.SelectMerchantTradeC2SPacket;
@@ -78,7 +79,6 @@ import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayPingS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.unmapped.C_vtnjglse;
 
 import org.quiltmc.qsl.networking.impl.ChannelInfoHolder;
 
@@ -172,9 +172,9 @@ public final class ServerRegistrySyncNetworkHandler implements ServerPlayPacketL
 				packet.getData().release();
 			}
 
-			this.connection.send(new DisconnectS2CPacket(reason), PacketSendListener.alwaysRun(() -> {
-				this.connection.disconnect(reason);
-			}));
+			this.connection.send(new DisconnectS2CPacket(reason),
+					PacketSendListener.alwaysRun(() -> this.connection.disconnect(reason))
+			);
 		} catch (Exception var3) {
 			LOGGER.error("Error whilst disconnecting player", var3);
 		}
@@ -195,10 +195,7 @@ public final class ServerRegistrySyncNetworkHandler implements ServerPlayPacketL
 	public void onChatCommand(ChatCommandC2SPacket packet) {}
 
 	@Override
-	public void onRequestChatPreview(RequestChatPreviewC2SPacket packet) {}
-
-	@Override
-	public void m_vuqeccvs(C_vtnjglse c_vtnjglse) {}
+	public void onMessageAcknowledgment(MessageAcknowledgmentC2SPacket packet) {}
 
 	@Override
 	public void onClientStatus(ClientStatusC2SPacket packet) {}
@@ -322,4 +319,7 @@ public final class ServerRegistrySyncNetworkHandler implements ServerPlayPacketL
 
 	@Override
 	public void onUpdateDifficultyLock(UpdateDifficultyLockC2SPacket packet) {}
+
+	@Override
+	public void onChatSessionUpdate(ChatSessionUpdateC2SPacket packet) {}
 }

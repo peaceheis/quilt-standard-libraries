@@ -16,6 +16,12 @@ if (version.contains("beta") && !ENV.MAVEN_URL) {
 	version = version.replace(version.substring(version.indexOf("beta.")), "beta." + (beta + 1))
 }
 
+// Same thing, but with alphas
+if (version.contains("alpha") && !ENV.MAVEN_URL) {
+	int alpha = Integer.parseInt(version.substring(version.indexOf("alpha.") + 6))
+	version = version.replace(version.substring(version.indexOf("alpha.")), "alpha." + (alpha + 1))
+}
+
 version = version + "+" + Versions.MINECRAFT_VERSION.version() + (System.getenv("SNAPSHOTS_URL") ? "-SNAPSHOT" : "")
 println("QSL: " + version)
 
@@ -159,12 +165,27 @@ loom {
 			configName = "Auto test server"
 			property("quilt.auto_test")
 		}
+
+		// Game test server, a server that executes tests using Minecraft's test framework.
+		gameTestServer {
+			inherit testmodServer
+
+			configName = "Game test server"
+			property("quilt.game_test", "true")
+			property("quilt.game_test.report_file", "${project.buildDir}/game_test/report.xml")
+			runDir("build/game_test")
+		}
 	}
 }
 
 task runAutoAllTestServer {
 	group "verification"
 	description "Runs all the server-sided tests automatically.\nTypically ran by the CI server."
+}
+
+task runGameAllTestServer {
+	group "verification"
+	description "Runs all the server-sided game tests automatically.\nTypically ran by the CI server."
 }
 
 afterEvaluate {
@@ -196,6 +217,8 @@ afterEvaluate {
 	}
 
 	tasks.runAutoAllTestServer.dependsOn tasks.runAutoTestServer
+	tasks.runGameAllTestServer.dependsOn tasks.runGameTestServer
+	tasks.test.dependsOn tasks.runGameAllTestServer
 }
 
 task checkVersion {
