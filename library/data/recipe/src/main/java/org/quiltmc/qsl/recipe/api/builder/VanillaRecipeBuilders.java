@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 QuiltMC
+ * Copyright 2022 The Quilt Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  */
 
 package org.quiltmc.qsl.recipe.api.builder;
-
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 
